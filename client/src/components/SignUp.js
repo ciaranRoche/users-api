@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Header from './Header';
-import Footer from './Footer';
-import {Container, Divider, Grid, Button, Form} from 'semantic-ui-react'
+import {Container, Divider, Form} from 'semantic-ui-react'
 
 const title = [
   {key: 'mr', text: 'Mr', value: 'mr'},
@@ -103,6 +102,7 @@ class SignUp extends Component {
       cell : '',
       PPS : '',
       picture : '',
+      auth : ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleGender = this.handleGender.bind(this);
@@ -134,13 +134,92 @@ class SignUp extends Component {
   }
 
   handleSubmit(event){
-    console.log(`${this.state.title}, ${this.state.first}`);
+    this.regUser();
     event.preventDefault();
   }
 
+  regUser(){
+    let user = {
+      'gender' : this.state.gender,
+      'name' : {
+        'title' : this.state.title,
+        'first' : this.state.first,
+        'last' : this.state.last
+      },
+      'location' : {
+        'street' : this.state.street,
+        'city' : this.state.city,
+        'state' : this.state.state,
+        'zip' : this.state.zip
+      },
+      'email' : this.state.email,
+      'username' : this.state.username,
+      'password' : this.state.password,
+      'dob' : this.state.dob,
+      'phone' : this.state.phone,
+      'cell' : this.state.cell,
+      'PPS' : this.state.PPS,
+      'picture' : {
+        'large' : this.state.picture,
+        'medium' : this.state.picture,
+        'thumbnail' : this.state.picture
+      }
+    }
+    let testUser = {
+      'gender' : 'male',
+      'name' : {
+        'title' : 'mr',
+        'first' : 'ciaran',
+        'last' : 'roche'
+      },
+      'location' : {
+        'street' : 'street name',
+        'city' : 'waterford',
+        'state' : 'ireland',
+        'zip' : 12344
+      },
+      'email' : 'mail@mail.com',
+      'username' : 'muldoon',
+      'password' : '12345',
+      'dob' : 234143432,
+      'phone' : '3423423',
+      'cell' : '23423423',
+      'PPS' : 2342434,
+      'picture' : {
+        'large' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
+        'medium' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
+        'thumbnail' : 'https://randomuser.me/api/portraits/med/women/60.jpg'
+      }
+    }
+    let link = `http://localhost:8000/users/add/user`
+       fetch(link,{
+         method : 'POST',
+         headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+         body : JSON.stringify(testUser)
+       }).then(res => {
+      if (res.ok)
+        return res.json()
+    }).then(data => {
+      if (data!=null){
+        console.log(data)
+        if(data===true){
+          this.setState({auth:true});
+        }
+      }else{
+        console.log('fail');
+      }
+    })
+  }
+  
+
 
   render(){
-    const {value}=this.state;
+    if (this.state.auth === true){
+      console.log('she true boy')
+    }
     return(<div>
       <Header/>
       <Container textAlign='justified'>
@@ -172,12 +251,12 @@ class SignUp extends Component {
         <Form.Group widths='equal'>
           <Form.Input label='City' placeholder='City' name='city' onChange={this.handleChange} />
           <Form.Input label='State' placeholder='State' name='city' onChange={this.handleChange} />
-          <Form.Input label='Zip' placeholder='Zip' name='city' onChange={this.handleChange} />
+          <Form.Input label='Zip' placeholder='Zip' name='zip' onChange={this.handleChange} />
         </Form.Group>
         <Form.Group widths='equal'>
           <Form.Input label='Phone' placeholder='Phone' name='phone' onChange={this.handleChange} />
           <Form.Input label='Cell' placeholder='Cell' name='cell' onChange={this.handleChange} />
-          <Form.Input label='PPS' placeholder='PPS' name='pps' onChange={this.handleChange} />
+          <Form.Input label='PPS' placeholder='PPS' name='PPS' onChange={this.handleChange} />
         </Form.Group>
          <Form.Group widths='equal'>
           <Form.Input label='Profile Picture Link' placeholder='Profile Picture Link' name='picture' onChange={this.handleChange} />

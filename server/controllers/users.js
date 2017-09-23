@@ -36,6 +36,25 @@ router.get('/:id', function(req, res) {
   });
 });
 
+// Add a user
+router.post('/add/:user', function(req, res) {
+  User.create(req.body);
+  User.findOne({
+    email:req.body.email
+  },function(err, user) {
+    if (err) {
+      return res.status(500).json({
+        error: "Error adding user : " + err
+      });
+    }
+    if (!user) {
+      return res.status(404).end();
+    } else {
+      res.json(true);
+    }
+  });
+});
+
 // Update a user by ID
 router.put('/update/:id', function(req, res) {
   User.findOneAndUpdate({
