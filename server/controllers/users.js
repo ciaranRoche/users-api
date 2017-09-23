@@ -71,7 +71,7 @@ router.put('/update/:id', function(req, res) {
 });
 
 // Delete a user by ID
-router.get('/delete/:id', function(req, res) {
+router.delete('/delete/:id', function(req, res) {
   User.findOneAndRemove({
     _id: req.params.id
   }, req.body, function(err) {
@@ -84,7 +84,7 @@ router.get('/delete/:id', function(req, res) {
   });
 });
 
-// Authenticate User by Email and Password
+// Hacky way to Authenticate User by Email and Password
 // todo : check against sha not password
 router.get('/auth/:username/:password', function(req, res) {
   var userName = req.params.username;
