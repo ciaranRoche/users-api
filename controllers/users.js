@@ -41,7 +41,7 @@ router.get('/:id', function(req, res) {
 router.put('/:id', function(req, res) {
   User.findOneAndUpdate({
     _id: req.params.id
-  }, req.body, function(err, user) {
+  }, req.body, function(err) {
     if (err) {
       return res
         .status(500).json({
@@ -65,7 +65,5 @@ router.delete('/id', function(req, res) {
     res.sendStatus(200);
   });
 });
-
-
 
 module.exports = router;
