@@ -8,7 +8,6 @@ class Profile extends Component{
     return(<div>
       <Header/>
       profile
-      <Footer/>
       </div>
     )
   }
