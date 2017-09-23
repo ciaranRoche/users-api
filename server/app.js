@@ -22,19 +22,19 @@ app.use(bodyParser.json());
 
 
 
-app.get('/', function(req, res, err) { // eslint-disable-line no-unused-vars
-  var md = function(filename) {
-    var path = __dirname + "/" + filename;
-    var include = fs.readFileSync(path, 'utf8');
-    var html = marked(include);
+// app.get('/', function(req, res, err) { // eslint-disable-line no-unused-vars
+//   var md = function(filename) {
+//     var path = __dirname + "/" + filename;
+//     var include = fs.readFileSync(path, 'utf8');
+//     var html = marked(include);
 
-    return html;
-  };
+//     return html;
+//   };
 
-  return res.render('index.ejs', {
-    "md": md
-  });
-});
+//   return res.render('index.ejs', {
+//     "md": md
+//   });
+// });
 
 // See the User Controller for `/users` routes
 app.use('/users', userController);
