@@ -12,7 +12,6 @@ router.get('/', function(req, res) {
         error: "Error listing users: " + err
       });
     }
-
     res.json(users);
   });
 });
@@ -38,7 +37,7 @@ router.get('/:id', function(req, res) {
 });
 
 // Update a user by ID
-router.put('/:id', function(req, res) {
+router.put('/update/:id', function(req, res) {
   User.findOneAndUpdate({
     _id: req.params.id
   }, req.body, function(err) {
@@ -53,8 +52,8 @@ router.put('/:id', function(req, res) {
 });
 
 // Delete a user by ID
-router.delete('/id', function(req, res) {
-  User.remove({
+router.get('/delete/:id', function(req, res) {
+  User.findOneAndRemove({
     _id: req.params.id
   }, req.body, function(err) {
     if (err) {
