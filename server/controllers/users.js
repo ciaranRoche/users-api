@@ -65,4 +65,24 @@ router.get('/delete/:id', function(req, res) {
   });
 });
 
+// Authenticate User by Email and Password
+// todo : check against sha not password
+router.get('/auth/:username/:password', function(req, res) {
+  var userName = req.params.username;
+  var userPass = req.params.password;
+  var check;
+  User.findOne({username:userName},function(err,item) {
+    if (item!==null) {
+      if (item.username === userName && item.password === userPass) {
+        check = true;
+      } else {
+        check = false;
+      }
+    } else {
+      check = false;
+    }
+    res.send({response: check});
+  });
+});
+
 module.exports = router;
