@@ -48,13 +48,13 @@ class Auth extends Component{
       if (data!=null){
         console.log(data.response)
         if(data.response===true){
+          sessionStorage.setItem('id', data.id)
           this.setState({auth:true})
         }
       }else{
         console.log('fail')
       }
     })
-    console.log('auth is ' , this.state.auth)
   }
 
   render(){

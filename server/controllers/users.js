@@ -31,7 +31,6 @@ router.get('/:id', function(req, res) {
     if (!user) {
       return res.status(404).end();
     }
-
     res.json(user);
   });
 });
@@ -89,18 +88,21 @@ router.delete('/delete/:id', function(req, res) {
 router.get('/auth/:username/:password', function(req, res) {
   var userName = req.params.username;
   var userPass = req.params.password;
+  var id;
   var check;
   User.findOne({username:userName},function(err,item) {
     if (item!==null) {
       if (item.username === userName && item.password === userPass) {
+        id = item._id;
         check = true;
       } else {
         check = false;
+        id = null;
       }
     } else {
       check = false;
     }
-    res.send({response: check});
+    res.send({response: check, id: id});
   });
 });
 
