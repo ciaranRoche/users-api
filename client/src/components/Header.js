@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
 import logo from '../assets/media/logo.svg';
 import '../assets/style/App.css';
 

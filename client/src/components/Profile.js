@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
 import Header from './Header';
+import Footer from './Footer';
 
 class Profile extends Component{
 
@@ -8,6 +8,7 @@ class Profile extends Component{
     return(<div>
       <Header/>
       profile
+      <Footer/>
       </div>
     )
   }
