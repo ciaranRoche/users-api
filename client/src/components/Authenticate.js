@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import Header from './Header';
-import {Container, Divider, Grid, Button, Form} from 'semantic-ui-react'
+import {Container, Divider, Grid, Button, Form, Image} from 'semantic-ui-react'
+import img1 from '../assets/media/auth.png';
+import img2 from '../assets/media/auth2.png';
 
 class Auth extends Component{
   constructor(props){
@@ -67,7 +69,7 @@ class Auth extends Component{
       <div>
           <br/>
             <Container textAlign='justified'>
-              <h2>Fight the Rebellion</h2>
+              <h2>Fight in the Rebellion</h2>
               <Divider />
               <Grid divided = 'vertically'>
                 <Grid.Row columns={2}>
@@ -86,18 +88,19 @@ class Auth extends Component{
                     </Form>
                   </Grid.Column>
                   <Grid.Column>
-                  
+                    <Image src={img1} fluid/>
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns={2}>
                   <Grid.Column>
-                  
+                    <Image src={img2} fluid />
                   </Grid.Column>
                   <Grid.Column>
                   <h2>Sign Up</h2>
                     <Container textAlign='center'>
                       <Divider/>
-                        <b><p>Want to Join the Rebellion?</p></b>
+                      <br/>
+                        <b><p>Want to Join the Resistance?</p></b>
                         <b><p>Just click the button below.</p></b>
                       <Divider/>
                         <Button fluid basic color='black' onClick={this.handleSignUp}>Sign Up</Button>
