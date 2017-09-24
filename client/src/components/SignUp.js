@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Header from './Header';
 import {Container, Divider, Form} from 'semantic-ui-react'
 
+//the below consts are used to populate drop down menus in the sign up page.
 const title = [
   {key: 'mr', text: 'Mr', value: 'mr'},
   {key: 'mrs', text: 'Mrs', value: 'mrs'},
@@ -83,9 +84,11 @@ const options = [
   { key: 'f', text: 'Female', value: 'female' },
 ]
 
+// class that allows a user sign up and create a profile
 class SignUp extends Component {
   constructor(props){
     super(props);
+    // user details to be saved in state to easily send to express endpoint
     this.state = {
       gender : '',
       title : '',
@@ -104,6 +107,7 @@ class SignUp extends Component {
       picture : '',
       auth : ''
     }
+    // the usual handler cleaner upper
     this.handleChange = this.handleChange.bind(this);
     this.handleGender = this.handleGender.bind(this);
     this.handleDob = this.handleDob.bind(this);
@@ -114,30 +118,36 @@ class SignUp extends Component {
 
   //------ HANDLER FUNCTIONS ------
 
+  // handles event change on type inputs
   handleChange(event){
     const name = event.target.name;
     this.setState({[name] : event.target.value});
     console.log(this.state[name]);
   }
 
+  // handles change from title drop down
   handleTitle(event, {value}){
     this.setState({title:value})
   }
 
+  // handles change from gender drop down
   handleGender(event, {value}){
     this.setState({gender:value});
   }
 
   //todo : edit this handler to actually handle dob for testing hard code dob
+  // note could not make sense of json dob so all new users get a hard coded dob :)
   handleDob(event, {value}){
     console.log(value);
   }
 
+  // handles the submit button which calls regUser function
   handleSubmit(event){
     this.regUser();
     event.preventDefault();
   }
 
+  // function that creates object user, packages it up and sends it to an express endpoint
   regUser(){
     let user = {
       'gender' : this.state.gender,
@@ -165,32 +175,32 @@ class SignUp extends Component {
         'thumbnail' : this.state.picture
       }
     }
-    let testUser = {
-      'gender' : 'male',
-      'name' : {
-        'title' : 'mr',
-        'first' : 'ciaran',
-        'last' : 'roche'
-      },
-      'location' : {
-        'street' : 'street name',
-        'city' : 'waterford',
-        'state' : 'ireland',
-        'zip' : 12344
-      },
-      'email' : 'mail@mail.com',
-      'username' : 'muldoon',
-      'password' : '12345',
-      'dob' : 234143432,
-      'phone' : '3423423',
-      'cell' : '23423423',
-      'PPS' : 2342434,
-      'picture' : {
-        'large' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
-        'medium' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
-        'thumbnail' : 'https://randomuser.me/api/portraits/med/women/60.jpg'
-      }
-    }
+    // let testUser = {
+    //   'gender' : 'male',
+    //   'name' : {
+    //     'title' : 'mr',
+    //     'first' : 'ciaran',
+    //     'last' : 'roche'
+    //   },
+    //   'location' : {
+    //     'street' : 'street name',
+    //     'city' : 'waterford',
+    //     'state' : 'ireland',
+    //     'zip' : 12344
+    //   },
+    //   'email' : 'mail@mail.com',
+    //   'username' : 'muldoon',
+    //   'password' : '12345',
+    //   'dob' : 234143432,
+    //   'phone' : '3423423',
+    //   'cell' : '23423423',
+    //   'PPS' : 2342434,
+    //   'picture' : {
+    //     'large' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
+    //     'medium' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
+    //     'thumbnail' : 'https://randomuser.me/api/portraits/med/women/60.jpg'
+    //   }
+    // }
     let link = `http://localhost:8000/users/add/`
        fetch(link,{
          method : 'POST',
@@ -198,7 +208,7 @@ class SignUp extends Component {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
         },
-         body : JSON.stringify(testUser)
+         body : JSON.stringify(user)
        }).then(res => {
       if (res.ok)
         return res.json()

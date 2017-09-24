@@ -7,7 +7,7 @@ import SignUp from '.././components/SignUp';
 import UserList from '.././components/UserList';
 
 
-
+// App class to handle mah routes
 class App extends Component {
 
   render() {

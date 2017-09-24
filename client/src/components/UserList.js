@@ -4,13 +4,12 @@ import Header from './Header';
 import {
   Container,
   Divider,
-  Grid,
   Button,
-  Form,
   Image,
   List
 } from 'semantic-ui-react'
 
+// class for displaying list of all users, also allows user to views other users profile
 class UserList extends Component{
   constructor(props){
     super(props);
@@ -20,10 +19,12 @@ class UserList extends Component{
     }
   }
 
+  // uses the lifecycle method to call get users function
   componentWillMount(){
     this.getUsers();
   }
 
+  // gets all users from db and populates an array in state
   getUsers(){
     let link = `http://localhost:8000/users/`
     fetch(link).then(res => {
@@ -38,6 +39,7 @@ class UserList extends Component{
     })
   }
 
+  // returns a button linked to a users profile page.
   viewProfile(profileID){
     let content;
     let id = this.state.users.filter(function (data){
@@ -53,6 +55,7 @@ class UserList extends Component{
     return content;
   }
 
+  // builds a list of users from the array list users in state
   buildUserList(users){
     return users.map((data) => {
         return <List key={data._id} animated celled verticalAlign='middle' size='big'>

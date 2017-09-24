@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import logo from '../assets/media/logo.png';
 import '../assets/style/App.css';
 
+// class to make applying a header more dynamic
 class Header extends Component {
   render(){
     return(

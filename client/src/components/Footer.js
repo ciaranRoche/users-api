@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../assets/style/App.css';
 
+// class to make applying a footer to each page a bit more dynamic
 class Footer extends Component {
   render() {
     return (

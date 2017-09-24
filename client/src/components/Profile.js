@@ -6,15 +6,17 @@ import {
   Divider,
   Grid,
   Button,
-  Form,
   Image,
   Menu
 } from 'semantic-ui-react'
 
+// class to display profile information of users
 class Profile extends Component{
   constructor(props){
     super(props);
+    // all state below are taking from the user json file from the server
     this.state = {
+      // state is assigned as a prop that is passed in as a param on the url
       'id' : props.match.params.id,
       'gender' : '',
       'name' : {
@@ -40,25 +42,31 @@ class Profile extends Component{
         'medium' : '',
         'thumbnail' : ''
       },
+      // used to trigger a redirect when a profile has been deleted
       'del':false
     };
+    // cleans up the handlers
     this.handleDelete = this.handleDelete.bind(this);
   };
 
+  // uses the component lifecycle method to call the getuser function on dom load
   componentDidMount(){
     this.getUser(this.state.id);
   }
 
+  // handler function for deleting a user
   handleDelete(){
     let link = `http://localhost:8000/users/delete/${this.state.id}`;
     fetch(link,{
       method: 'DELETE'
     }).then(res => {
       if (res.status===200)
+        //triggers the redirect
         this.setState({del:true});
     })
   }
 
+  // simple menu system for displaying two buttons one to go back to users and one to delete a user
   profileMenu(){
     return(<div>
       <Menu secondary>
@@ -75,6 +83,7 @@ class Profile extends Component{
     )
   }
 
+  // called from the componentwillmount function to get users information and populate it into state
   getUser(id){
     let link = `http://localhost:8000/users/${id}`
     fetch(link).then(res => {

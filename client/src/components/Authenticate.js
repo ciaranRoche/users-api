@@ -3,19 +3,23 @@ import {Redirect} from 'react-router-dom';
 import Header from './Header';
 import {Container, Divider, Grid, Button, Form, Image} from 'semantic-ui-react'
 import img1 from '../assets/media/poster.png';
-import img2 from '../assets/media/poster2.png';
 import img3 from '../assets/media/poster3.png';
 
+// Class Auth will be first component viewed by user, giving user to option to sign in, sign up or view all users.
 class Auth extends Component{
   constructor(props){
     super(props);
     this.state ={
+      // used to send username to express endpoint
       userName : '',
+      // used to send password to express endpoint
       password : '',
+      // these are checks that trigger redirects pending on users selection
       auth : false,
       sign : false,
       users : false,
     };
+    // cleaning up the handles
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
@@ -24,22 +28,26 @@ class Auth extends Component{
 
   //------ HANDLER FUNCTIONS -------
 
+  // takes in the 'name' and sets state accordingly
   handleChange(event){
     const name = event.target.name;
     this.setState({[name]: event.target.value});
     console.log('handle change fired')
   }
 
+  // called the auth method on press of submit button
   handleSubmit(event){
     console.log('submit fired')
     this.authUser();
     event.preventDefault();
   }
 
+  // sets state to trigger a re direct
   handleSignUp(event){
     this.setState({sign:true});
   }
 
+  // set state to trigger a re direct
   handleView(event){
     this.setState({users:true});
   }
