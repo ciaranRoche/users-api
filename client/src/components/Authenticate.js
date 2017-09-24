@@ -12,11 +12,13 @@ class Auth extends Component{
       userName : '',
       password : '',
       auth : false,
-      sign : false
+      sign : false,
+      users : false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
+    this.handleView = this.handleView.bind(this);
   };
 
   //------ HANDLER FUNCTIONS -------
@@ -37,6 +39,12 @@ class Auth extends Component{
     this.setState({sign:true});
   }
 
+  handleView(event){
+    this.setState({users:true});
+  }
+
+  //function that sends username and password as params to end point, where
+  //a look up on db verifies if user and password match, a boolean is sent back
   authUser(){
     // todo: sha password before sending it as a request
     // todo: set a trigger on failed auth
@@ -58,11 +66,15 @@ class Auth extends Component{
   }
 
   render(){
+    // hacky way to handle routes, avoids using router history by using dom changes
     if(this.state.auth === true){
       return <Redirect to='/profile'/>
     }
     if(this.state.sign === true){
       return <Redirect to='/signup'/>
+    }
+    if(this.state.users === true){
+      return <Redirect to='/users'/>
     }
     return(<div>
       <Header/>
@@ -70,6 +82,7 @@ class Auth extends Component{
           <br/>
             <Container textAlign='justified'>
               <h2>Fight in the Rebellion</h2>
+              <Button onClick={this.handleView}>View All</Button>
               <Divider />
               <Grid divided = 'vertically'>
                 <Grid.Row columns={2}>

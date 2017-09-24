@@ -17,6 +17,22 @@ class UserList extends Component{
     }
   }
 
+  componentWillMount(){
+    this.getUsers();
+  }
+
+  getUsers(){
+    let link = `http://localhost:8000/users/`
+    fetch(link).then(res => {
+      if(res.ok)
+        return res.json()
+    }).then(data => {
+      if(data!=null){
+        console.log(data)
+      }
+    })
+  }
+
   render(){
     return(<div>
         <Header/>
