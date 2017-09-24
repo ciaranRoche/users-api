@@ -15,7 +15,8 @@ class UserList extends Component{
   constructor(props){
     super(props);
     this.state = {
-      users : []
+      users : [],
+      initialUsers : []
     }
   }
 
@@ -30,7 +31,7 @@ class UserList extends Component{
         return res.json()
     }).then(data => {
       if(data!=null){
-        this.setState({users:data});
+        this.setState({users:data, initialUsers:data});
       }else{
         console.log('failed to load users');
       }

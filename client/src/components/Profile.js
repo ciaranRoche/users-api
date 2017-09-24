@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import Header from './Header';
 import {
   Container,
@@ -6,10 +7,9 @@ import {
   Grid,
   Button,
   Form,
-  Image
+  Image,
+  Menu
 } from 'semantic-ui-react'
-
-
 
 class Profile extends Component{
   constructor(props){
@@ -40,18 +40,33 @@ class Profile extends Component{
         'medium' : '',
         'thumbnail' : ''
       }
-    }
+    };
   };
 
   componentDidMount(){
-    console.log(this.state.id)
-    let tempId = sessionStorage.getItem('logged_id');
-    console.log(tempId);
     this.getUser(this.state.id);
   }
 
+  menuButton(){
+    
+    return <div><Link to={`/users`}>
+        <Button basic fluid color='black'>View Users</Button>
+      </Link>
+    </div>
+  }
+
+  profileMenu(){
+    return(<div>
+      <Menu secondary>
+        <Menu.Item>
+          {this.menuButton()}
+        </Menu.Item>
+      </Menu>
+      </div>
+    )
+  }
+
   getUser(id){
-    console.log(id)
     let link = `http://localhost:8000/users/${id}`
     fetch(link).then(res => {
       if (res.ok)
@@ -88,6 +103,7 @@ class Profile extends Component{
   render(){
     return(<div>
       <Header/>
+      {this.profileMenu()}
       <Container textAlign='justified'>
         <h1>{this.state.name.first} {this.state.name.last}</h1>
           <Divider />
