@@ -57,7 +57,29 @@ class Profile extends Component{
         return res.json()
     }).then(data => {
       if (data!=null){
-        console.log(data);
+        this.setState({gender:data.gender,
+          name:{
+            title:data.name.title,
+            first:data.name.first,
+            last:data.name.last
+          },
+          location:{
+            street:data.location.street,
+            city:data.location.city,
+            state:data.location.state,
+            zip:data.location.zip
+          },
+          email:data.email,
+          username:data.username,
+          phone:data.phone,
+          cell:data.cell,
+          PPS:data.PPS,
+          picture:{
+            large:data.picture.large,
+            medium:data.picture.medium,
+            thumbnail:data.picture.thumbnail
+          }
+        });
       };
     });
   }
@@ -66,7 +88,7 @@ class Profile extends Component{
     return(<div>
       <Header/>
       <Container textAlign='justified'>
-        profile
+        <h2>Welcome {this.state.username}</h2>
       </Container>
       </div>
     )
