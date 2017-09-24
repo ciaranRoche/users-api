@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import Header from './Header';
 import {Container, Divider, Grid, Button, Form, Image} from 'semantic-ui-react'
-import img1 from '../assets/media/auth.png';
-import img2 from '../assets/media/auth2.png';
+import img1 from '../assets/media/poster.png';
+import img2 from '../assets/media/poster2.png';
+import img3 from '../assets/media/poster3.png';
 
 class Auth extends Component{
   constructor(props){
@@ -68,7 +69,8 @@ class Auth extends Component{
   render(){
     // hacky way to handle routes, avoids using router history by using dom changes
     if(this.state.auth === true){
-      return <Redirect to='/profile'/>
+      let link = `/profile/${sessionStorage.getItem('logged_id')}`;
+      return <Redirect to={link}/>
     }
     if(this.state.sign === true){
       return <Redirect to='/signup'/>
@@ -82,12 +84,10 @@ class Auth extends Component{
           <br/>
             <Container textAlign='justified'>
               <h2>Fight in the Rebellion</h2>
-              <Button onClick={this.handleView}>View All</Button>
               <Divider />
               <Grid divided = 'vertically'>
                 <Grid.Row columns={2}>
                   <Grid.Column>
-                  <h2>Log In</h2>
                     <Form onSubmit={this.handleSubmit}>
                       <Form.Field>
                         <input type='text' name='userName' onChange={this.handleChange} placeholder='Username' />
@@ -101,12 +101,35 @@ class Auth extends Component{
                     </Form>
                   </Grid.Column>
                   <Grid.Column>
-                    <Image src={img1} fluid/>
+                    <p> 
+                    The Rebel Alliance stood bravely against the evil of the Galactic Empire,
+                    never backing down despite overwhelming odds.Formed from resistance movements that arose during the Clone Wars,
+                    the Rebellion worked in secret for decades to overthrow the Emperor and restore democracy to the galaxy.Eventually,
+                    armed with the firepower of ships like the X - wing and A - wing,
+                    and the leadership of figures including Princess Leia and Admiral Ackbar,
+                    the Rebel Alliance triumphed over the Empire at the Battle of Endor.
+                    </p>
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns={2}>
                   <Grid.Column>
-                    <Image src={img2} fluid />
+                    <Image src={img1} fluid />
+                  </Grid.Column>
+                  <Grid.Column>
+                      <Image src={img3} fluid />
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row columns={2}>
+                  <Grid.Column>
+                    <h2>View Members</h2>
+                    <Container textAlign='center'>
+                      <Divider/>
+                      <br/>
+                        <b><p>Want to view of Resistance Members?</p></b>
+                        <b><p>Just click the button below.</p></b>
+                      <Divider/>
+                        <Button fluid basic color='black' onClick={this.handleView}>View All</Button>
+                    </Container>
                   </Grid.Column>
                   <Grid.Column>
                   <h2>Sign Up</h2>
@@ -122,13 +145,6 @@ class Auth extends Component{
                 </Grid.Row>
               </Grid>
               <Divider/>
-                <p> The Rebel Alliance stood bravely against the evil of the Galactic Empire,
-                    never backing down despite overwhelming odds.Formed from resistance movements that arose during the Clone Wars,
-                    the Rebellion worked in secret for decades to overthrow the Emperor and restore democracy to the galaxy.Eventually,
-                    armed with the firepower of ships like the X - wing and A - wing,
-                    and the leadership of figures including Princess Leia and Admiral Ackbar,
-                    the Rebel Alliance triumphed over the Empire at the Battle of Endor.
-                </p>
             </Container>
         </div>
       </div>

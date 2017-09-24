@@ -36,7 +36,7 @@ router.get('/:id', function(req, res) {
 });
 
 // Add a user
-router.post('/add/:user', function(req, res) {
+router.post('/add/', function(req, res) {
   User.create(req.body);
   User.findOne({
     email:req.body.email

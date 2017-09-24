@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import Header from './Header';
 import {
   Container,
@@ -36,6 +37,21 @@ class UserList extends Component{
     })
   }
 
+  viewProfile(profileID){
+    let content;
+    let id = this.state.users.filter(function (data){
+      return data._id === profileID._id;
+    }).map(function (data){
+      return data._id;
+    })
+    content = <div><Link to={`/profile/${id}`}>
+        <Button basic fluid color='black'>View Profile</Button>
+      </Link>
+    </div>
+
+    return content;
+  }
+
   buildUserList(users){
     return users.map((data) => {
         return <List key={data._id} animated celled verticalAlign='middle' size='big'>
@@ -45,7 +61,7 @@ class UserList extends Component{
             <List.Header>{data.name.first} {data.name.last}</List.Header>
           </List.Content>
           <List.Content floated='right'>
-            <Button>View Profile</Button>
+            {this.viewProfile(data)}
           </List.Content>
           </List.Item>
         </List>

@@ -191,7 +191,7 @@ class SignUp extends Component {
         'thumbnail' : 'https://randomuser.me/api/portraits/med/women/60.jpg'
       }
     }
-    let link = `http://localhost:8000/users/add/user`
+    let link = `http://localhost:8000/users/add/`
        fetch(link,{
          method : 'POST',
          headers: {

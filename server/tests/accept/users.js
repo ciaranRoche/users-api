@@ -78,6 +78,57 @@ describe('Users', function() {
       });
     });
   });
+
+  // This is failing, will return to this function
+  describe('/POST users/add/:user', function() {
+    it('should create a single user', function(done) {
+      var user = {
+        'gender' : 'male',
+        'name' : {
+          'title' : 'mr',
+          'first' : 'ciaran',
+          'last' : 'roche'
+        },
+        'location' : {
+          'street' : 'street name',
+          'city' : 'waterford',
+          'state' : 'ireland',
+          'zip' : 12344
+        },
+        'email' : 'mail@mail.com',
+        'username' : 'muldoon',
+        'password' : '12345',
+        'dob' : 234143432,
+        'phone' : '3423423',
+        'cell' : '23423423',
+        'PPS' : 2342434,
+        'picture' : {
+          'large' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
+          'medium' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
+          'thumbnail' : 'https://randomuser.me/api/portraits/med/women/60.jpg'
+        }};
+
+
+      // Create a new user
+      chai.request(url)
+        .post('/users/add/')
+        .send(user)
+        .end(function(err, res) {
+          res.should.have.status(201);
+          expect(res.header.location).to.be.a('object');
+
+          // Get the new user by id
+          chai.request(url)
+            .get(res.header.location)
+            .end(function(err, user) {
+              user.should.have.status(200);
+              expect(user.body).to.be.a(true);
+              done();
+            });
+        });
+    });
+  });
+
 });
 
 

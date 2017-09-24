@@ -15,7 +15,7 @@ class Profile extends Component{
   constructor(props){
     super(props);
     this.state = {
-      'id' : '',
+      'id' : props.match.params.id,
       'gender' : '',
       'name' : {
         'title' : '',
@@ -44,9 +44,10 @@ class Profile extends Component{
   };
 
   componentDidMount(){
+    console.log(this.state.id)
     let tempId = sessionStorage.getItem('logged_id');
     console.log(tempId);
-    this.getUser(tempId);
+    this.getUser(this.state.id);
   }
 
   getUser(id){

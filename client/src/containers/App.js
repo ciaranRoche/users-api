@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path="/" component={Auth}/>
-        <Route exact path="/profile" component={Profile}/>
+        <Route exact path="/profile/:id" component={Profile}/>
         <Route exact path="/signup" component={SignUp}/>
         <Route exact path="/users" component={UserList}/>
 			</Switch>
