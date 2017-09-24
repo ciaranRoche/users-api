@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Header from './Header';
 import {
   Container,
@@ -39,27 +39,36 @@ class Profile extends Component{
         'large' : '',
         'medium' : '',
         'thumbnail' : ''
-      }
+      },
+      'del':false
     };
+    this.handleDelete = this.handleDelete.bind(this);
   };
 
   componentDidMount(){
     this.getUser(this.state.id);
   }
 
-  menuButton(){
-    
-    return <div><Link to={`/users`}>
-        <Button basic fluid color='black'>View Users</Button>
-      </Link>
-    </div>
+  handleDelete(){
+    let link = `http://localhost:8000/users/delete/${this.state.id}`;
+    fetch(link,{
+      method: 'DELETE'
+    }).then(res => {
+      if (res.status===200)
+        this.setState({del:true});
+    })
   }
 
   profileMenu(){
     return(<div>
       <Menu secondary>
         <Menu.Item>
-          {this.menuButton()}
+          <Link to={`/users`}>
+            <Button basic fluid color='black'>View Users</Button>
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <div><Button basic color='black' onClick={this.handleDelete}>Delete Profile</Button></div>
         </Menu.Item>
       </Menu>
       </div>
@@ -101,6 +110,9 @@ class Profile extends Component{
   }
 
   render(){
+    if(this.state.del === true){
+      return(<Redirect to='/users'/>)
+    }
     return(<div>
       <Header/>
       {this.profileMenu()}
