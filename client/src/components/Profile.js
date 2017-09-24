@@ -44,7 +44,7 @@ class Profile extends Component{
   };
 
   componentDidMount(){
-    let tempId = sessionStorage.getItem('id');
+    let tempId = sessionStorage.getItem('logged_id');
     console.log(tempId);
     this.getUser(tempId);
   }
@@ -88,7 +88,27 @@ class Profile extends Component{
     return(<div>
       <Header/>
       <Container textAlign='justified'>
-        <h2>Welcome {this.state.username}</h2>
+        <h1>{this.state.name.first} {this.state.name.last}</h1>
+          <Divider />
+          <Grid divided = 'vertically'>
+            <Grid.Row columns={2}>
+              <Grid.Column>
+                <Image size='large' centered src={this.state.picture.large} />
+              </Grid.Column>
+              <Grid.Column>
+                <h2>Address</h2>
+                <Divider/>
+                <p>{this.state.location.street}</p>
+                <p>{this.state.location.city}</p>
+                <p>{this.state.location.state}</p>
+                <p>{this.state.location.zip}</p>
+                <h2>Contact</h2>
+                <p><b>Email</b> : {this.state.email}</p>
+                <p><b>Phone</b> : {this.state.phone}</p>
+                <p><b>Cell</b> : {this.state.cell}</p>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
       </Container>
       </div>
     )
