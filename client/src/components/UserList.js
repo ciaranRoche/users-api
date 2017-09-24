@@ -6,7 +6,8 @@ import {
   Grid,
   Button,
   Form,
-  Image
+  Image,
+  List
 } from 'semantic-ui-react'
 
 class UserList extends Component{
@@ -28,15 +29,38 @@ class UserList extends Component{
         return res.json()
     }).then(data => {
       if(data!=null){
-        console.log(data)
+        this.setState({users:data});
+      }else{
+        console.log('failed to load users');
       }
+    })
+  }
+
+  buildUserList(users){
+    return users.map((data) => {
+        return <List key={data._id} animated celled verticalAlign='middle' size='big'>
+          <List.Item>
+            <Image avatar src={data.picture.thumbnail}/>
+          <List.Content>
+            <List.Header>{data.name.first} {data.name.last}</List.Header>
+          </List.Content>
+          <List.Content floated='right'>
+            <Button>View Profile</Button>
+          </List.Content>
+          </List.Item>
+        </List>
     })
   }
 
   render(){
     return(<div>
         <Header/>
-        user list
+        <Container textAlign='justified'>
+        <br/>
+          <h1>List of Resistance Members</h1>
+            <Divider/>
+              {this.buildUserList(this.state.users)}
+        </Container>
       </div>
     )
   }
