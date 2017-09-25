@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import Header from './Header';
-import {Container, Divider, Form} from 'semantic-ui-react'
+import {Container, Divider, Form, Menu, Button} from 'semantic-ui-react'
 
 //the below consts are used to populate drop down menus in the sign up page.
 const title = [
@@ -223,6 +224,19 @@ class SignUp extends Component {
       }
     })
   }
+
+    signUpMenu(){
+      return(<div>
+        <Menu secondary>
+          <Menu.Item>
+            <Link to={`/`}>
+              <Button basic fluid color='black'>Log In</Button>
+            </Link>
+          </Menu.Item>
+        </Menu>
+        </div>
+      )
+    }
   
 
 
@@ -232,6 +246,7 @@ class SignUp extends Component {
     }
     return(<div>
       <Header/>
+      {this.signUpMenu()}
       <Container textAlign='justified'>
         <h2>Sign Up for the Galaxy</h2>
         <Divider/>

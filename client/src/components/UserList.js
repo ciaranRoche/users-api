@@ -6,7 +6,8 @@ import {
   Divider,
   Button,
   Image,
-  List
+  List,
+  Menu
 } from 'semantic-ui-react'
 
 // class for displaying list of all users, also allows user to views other users profile
@@ -55,6 +56,19 @@ class UserList extends Component{
     return content;
   }
 
+  userListMenu(){
+    return(<div>
+      <Menu secondary>
+        <Menu.Item>
+          <Link to={`/`}>
+            <Button basic fluid color='black'>Log In</Button>
+          </Link>
+        </Menu.Item>
+      </Menu>
+      </div>
+    )
+  }
+
   // builds a list of users from the array list users in state
   buildUserList(users){
     return users.map((data) => {
@@ -75,6 +89,7 @@ class UserList extends Component{
   render(){
     return(<div>
         <Header/>
+        {this.userListMenu()}
         <Container textAlign='justified'>
         <br/>
           <h1>List of Resistance Members</h1>

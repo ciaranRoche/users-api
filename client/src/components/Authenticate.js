@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import Header from './Header';
 import {Container, Divider, Grid, Button, Form, Image} from 'semantic-ui-react'
 import img1 from '../assets/media/poster.png';
@@ -17,13 +17,10 @@ class Auth extends Component{
       // these are checks that trigger redirects pending on users selection
       auth : false,
       sign : false,
-      users : false,
     };
     // cleaning up the handles
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSignUp = this.handleSignUp.bind(this);
-    this.handleView = this.handleView.bind(this);
   };
 
   //------ HANDLER FUNCTIONS -------
@@ -40,16 +37,6 @@ class Auth extends Component{
     console.log('submit fired')
     this.authUser();
     event.preventDefault();
-  }
-
-  // sets state to trigger a re direct
-  handleSignUp(event){
-    this.setState({sign:true});
-  }
-
-  // set state to trigger a re direct
-  handleView(event){
-    this.setState({users:true});
   }
 
   //function that sends username and password as params to end point, where
@@ -74,6 +61,18 @@ class Auth extends Component{
     })
   }
 
+  viewUsers(){
+    return(<Link to={`/users`}>
+            <Button basic fluid color='black'>View Users</Button>
+          </Link>)
+  }
+
+  signUp(){
+    return(<Link to={`/signup`}>
+            <Button basic fluid color='black'>Sign Up</Button>
+          </Link>)
+  }
+
   render(){
     // hacky way to handle routes, avoids using router history by using dom changes
     if(this.state.auth === true){
@@ -82,9 +81,6 @@ class Auth extends Component{
     }
     if(this.state.sign === true){
       return <Redirect to='/signup'/>
-    }
-    if(this.state.users === true){
-      return <Redirect to='/users'/>
     }
     return(<div>
       <Header/>
@@ -136,7 +132,7 @@ class Auth extends Component{
                         <b><p>Want to view of Resistance Members?</p></b>
                         <b><p>Just click the button below.</p></b>
                       <Divider/>
-                        <Button fluid basic color='black' onClick={this.handleView}>View All</Button>
+                        {this.viewUsers()}
                     </Container>
                   </Grid.Column>
                   <Grid.Column>
@@ -147,7 +143,7 @@ class Auth extends Component{
                         <b><p>Want to Join the Resistance?</p></b>
                         <b><p>Just click the button below.</p></b>
                       <Divider/>
-                        <Button fluid basic color='black' onClick={this.handleSignUp}>Sign Up</Button>
+                        {this.signUp()}
                     </Container>
                   </Grid.Column>
                 </Grid.Row>
