@@ -35,22 +35,19 @@ router.get('/:id', function(req, res) {
   });
 });
 
+//todo: get the res sorted for the test, the add method works but the response is a bit fucky
 // Add a user
 router.post('/add/', function(req, res) {
-  User.create(req.body);
-  User.findOne({
-    email:req.body.email
-  },function(err, user) {
+  User.create(req.body,function(err,response) {
     if (err) {
-      return res.status(500).json({
-        error: "Error adding user : " + err
+      return res.statusMessage(500).json({
+        error: 'Error adding user: ' + err
       });
     }
-    if (!user) {
-      return res.status(404).end();
-    } else {
-      res.json(true);
+    if (!response) {
+      res.status(200).end();
     }
+    res.json(response);
   });
 });
 

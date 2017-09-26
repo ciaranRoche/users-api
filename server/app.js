@@ -18,25 +18,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-
-
-// app.get('/', function(req, res, err) { // eslint-disable-line no-unused-vars
-//   var md = function(filename) {
-//     var path = __dirname + "/" + filename;
-//     var include = fs.readFileSync(path, 'utf8');
-//     var html = marked(include);
-
-//     return html;
-//   };
-
-//   return res.render('index.ejs', {
-//     "md": md
-//   });
-// });
-
 // See the User Controller for `/users` routes
 app.use('/users', userController);
-
 
 // Some switches for acceptance tests
 if (require.main === module) {

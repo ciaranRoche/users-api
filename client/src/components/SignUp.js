@@ -176,32 +176,32 @@ class SignUp extends Component {
         'thumbnail' : this.state.picture
       }
     }
-    // let testUser = {
-    //   'gender' : 'male',
-    //   'name' : {
-    //     'title' : 'mr',
-    //     'first' : 'ciaran',
-    //     'last' : 'roche'
-    //   },
-    //   'location' : {
-    //     'street' : 'street name',
-    //     'city' : 'waterford',
-    //     'state' : 'ireland',
-    //     'zip' : 12344
-    //   },
-    //   'email' : 'mail@mail.com',
-    //   'username' : 'muldoon',
-    //   'password' : '12345',
-    //   'dob' : 234143432,
-    //   'phone' : '3423423',
-    //   'cell' : '23423423',
-    //   'PPS' : 2342434,
-    //   'picture' : {
-    //     'large' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
-    //     'medium' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
-    //     'thumbnail' : 'https://randomuser.me/api/portraits/med/women/60.jpg'
-    //   }
-    // }
+    let testUser = {
+      'gender' : 'male',
+      'name' : {
+        'title' : 'mr',
+        'first' : 'ciaran',
+        'last' : 'roche'
+      },
+      'location' : {
+        'street' : 'street name',
+        'city' : 'waterford',
+        'state' : 'ireland',
+        'zip' : 12344
+      },
+      'email' : 'mail@mail.com',
+      'username' : 'muldoon',
+      'password' : '12345',
+      'dob' : 234143432,
+      'phone' : '3423423',
+      'cell' : '23423423',
+      'PPS' : 2342434,
+      'picture' : {
+        'large' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
+        'medium' : 'https://randomuser.me/api/portraits/med/women/60.jpg',
+        'thumbnail' : 'https://randomuser.me/api/portraits/med/women/60.jpg'
+      }
+    }
     let link = `http://localhost:8000/users/add/`
        fetch(link,{
          method : 'POST',
@@ -209,18 +209,18 @@ class SignUp extends Component {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
         },
-         body : JSON.stringify(user)
+         body : JSON.stringify(testUser)
        }).then(res => {
+console.log(res)
       if (res.ok)
         return res.json()
     }).then(data => {
       if (data!=null){
-        console.log(data)
         if(data===true){
           this.setState({auth:true});
         }
       }else{
-        console.log('fail');
+        this.setState({auth:false});
       }
     })
   }
@@ -242,7 +242,6 @@ class SignUp extends Component {
 
   render(){
     if (this.state.auth === true){
-      console.log('she true boy')
     }
     return(<div>
       <Header/>
