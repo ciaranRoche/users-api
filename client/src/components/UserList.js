@@ -56,13 +56,28 @@ class UserList extends Component{
     return content;
   }
 
+  userProfileButton(){
+    let content;
+    let id = sessionStorage.getItem('logged_id');
+    if(id!==null){
+      let link = `/profile/${id}`
+      content = <Link to={link}>
+        <Button basic fluid color='black'>Profile</Button>
+      </Link>
+    }
+    return content;
+  }
+
   userListMenu(){
     return(<div>
       <Menu secondary>
         <Menu.Item>
           <Link to={`/`}>
-            <Button basic fluid color='black'>Log In</Button>
+            <Button basic fluid color='black'>Home Page</Button>
           </Link>
+        </Menu.Item>
+        <Menu.Item>
+          {this.userProfileButton()}
         </Menu.Item>
       </Menu>
       </div>
