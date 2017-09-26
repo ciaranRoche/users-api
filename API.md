@@ -202,5 +202,5 @@ Returns a list of Users
     }
   });
   ```
-
+  
 Inspired by https://gist.github.com/iros/3426278

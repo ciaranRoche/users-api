@@ -9,7 +9,7 @@ Clone the Repo
 
 Ensure `mongod` is running, either as a service or in another shell
 
-### Getting Started Client
+### Getting Started, Client
 
 ```
 $ cd client
@@ -17,12 +17,20 @@ $ npm install
 $ npm start
 ```
 
-### Getting Started Server
+### Getting Started, Server
 
 ```
+$ cd server
 $ npm install
 $ npm run-script seed # Seed the DB with Users
 $ npm start
+```
+
+### Running tests, Server
+
+```
+$ cd server
+$ npm test
 ```
 
 ## Tech/Stack
